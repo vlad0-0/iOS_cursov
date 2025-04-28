@@ -12,7 +12,9 @@ struct ProductListView: View {
     
     var body: some View {
         List(presenter.products) { product in
-            HStack {
+            NavigationLink {
+                ProductDetailView(product: product)
+            } label: {
                 AsyncImage(url: URL(string: product.images[0])) { image in
                     image.resizable().frame(width: 60, height: 60)
                 } placeholder: {

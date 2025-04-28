@@ -22,5 +22,7 @@ struct ArchitectChangeView: View {
 }
 
 #Preview {
-    ArchitectChangeView()
+    NavigationStack {
+        ArchitectChangeView()
+    }
 }
