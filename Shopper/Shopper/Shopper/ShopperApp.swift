@@ -13,5 +13,6 @@ struct ShopperApp: App {
         WindowGroup {
             ContentView()
         }
+        .modelContainer(for: ProductFavourite.self)
     }
 }
