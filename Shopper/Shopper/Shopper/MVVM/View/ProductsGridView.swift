@@ -5,11 +5,13 @@
 //  Created by Владимир Василенко on 23.04.2025.
 //
 
+import SwiftData
 import SwiftUI
 
 struct ProductsGridView: View {
     @StateObject var productPresenter = ProductPresenter()
-    
+    @State private var searchText = ""
+
     var body: some View {
         ScrollView {
             let columns = [GridItem(.flexible()), GridItem(.flexible())]
@@ -22,12 +24,7 @@ struct ProductsGridView: View {
                                 .font(.headline)
                                 .lineLimit(2)
                             Spacer()
-                            Button {
-                                // action
-                            } label: {
-                                Image(systemName: "star")
-                                    .font(.headline)
-                            }
+                            FavouriteButton(product: product)
                         }
                         
                         AsyncImage(url: URL(string: product.images[0])!) { image in
@@ -49,6 +46,12 @@ struct ProductsGridView: View {
                 .padding()
             }
         }
+        .searchable(
+            text: $searchText,
+            isPresented: .constant(false),
+            placement: .automatic,
+            prompt: "Search"
+        )
         .task {
             productPresenter.loadProducts()
         }

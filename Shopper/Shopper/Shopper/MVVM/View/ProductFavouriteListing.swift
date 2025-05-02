@@ -1,0 +1,52 @@
+//
+//  ProductFavouriteListing.swift
+//  Shopper
+//
+//  Created by Владимир Василенко on 24.04.2025.
+//
+
+import SwiftData
+import SwiftUI
+
+struct ProductFavouriteListing: View {
+    @Environment(\.modelContext) var modelContext
+    @Query(sort: [SortDescriptor(\ProductSwiftData.price, order: .reverse), SortDescriptor(\ProductSwiftData.title)]) var products: [ProductSwiftData]
+    
+    var body: some View {
+        List {
+            ForEach(products) { product in
+                NavigationLink {
+                    ProductDetailView(product: product.toProduct)
+                } label: {
+                    AsyncImage(url: URL(string: product.images[0])) { image in
+                        image.resizable().frame(width: 60, height: 60)
+                    } placeholder: {
+                        ProgressView().frame(width: 60, height: 60)
+                    }
+                    VStack(alignment: .leading) {
+                        Text(product.title).bold()
+                        Text(product.price, format: .currency(code: "EUR"))
+                    }
+                }
+            }
+            .onDelete(perform: deleteProducts)
+        }
+    }
+    
+    init(sort: SortDescriptor<ProductSwiftData>, searchString: String) {
+        _products = Query(filter: #Predicate {
+            if searchString.isEmpty {
+                return true
+            } else {
+                return $0.title.localizedStandardContains(searchString)
+            }
+        }, sort: [sort])
+    }
+    
+    func deleteProducts(_ indexSet: IndexSet) {
+        for index in indexSet {
+            let product = products[index]
+            modelContext.delete(product)
+        }
+    }
+}

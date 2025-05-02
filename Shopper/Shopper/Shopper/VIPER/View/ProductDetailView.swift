@@ -18,7 +18,7 @@ struct ProductDetailView: View {
                         AsyncImage(url: URL(string: image)!) { image in
                             image
                                 .resizable()
-                                .scaledToFit()
+                                .scaledToFill()
                         } placeholder: {
                             Rectangle()
                                 .foregroundStyle(.clear)
@@ -30,7 +30,7 @@ struct ProductDetailView: View {
                     }
                 }
                 .tabViewStyle(.page)
-                .scaledToFit()
+                .scaledToFill()
                 
                 Group {
                     Text(product.title)

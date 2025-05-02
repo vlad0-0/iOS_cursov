@@ -31,7 +31,7 @@ enum ShopTabs: String, CaseIterable {
         case .bag:
             ArchitectChangeView()
         case .favorites:
-            Text("Favorites")
+            ProductFavouriteList()
         case .cart:
             UserListView()
         case .profile:

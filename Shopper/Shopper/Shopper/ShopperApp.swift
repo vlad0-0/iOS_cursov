@@ -5,6 +5,7 @@
 //  Created by Владимир Василенко on 23.04.2025.
 //
 
+import SwiftData
 import SwiftUI
 
 @main
@@ -13,6 +14,6 @@ struct ShopperApp: App {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(for: ProductFavourite.self)
+        .modelContainer(for: ProductSwiftData.self)
     }
 }
