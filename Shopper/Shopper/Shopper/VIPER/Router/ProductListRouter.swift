@@ -14,6 +14,6 @@ enum ProductListRouter {
         presenter.interactor = interactor
         interactor.presenter = presenter
 
-        return ProductListView(presenter: presenter)
+        return ProductList(presenter: presenter)
     }
 }
